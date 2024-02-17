@@ -33,6 +33,7 @@ def analyzing_ip(path):
     file2.close()
     return file2
 def main():
-    ...
+    analyzing_ip('log.txt') # Работаю на двух компах, один ноут, второй на работе,
+                            # тот  же код на работе не ищет адреса с четвертым символом к шаблоном в 3 цифры
 if __name__ == "__main__":
     main()
