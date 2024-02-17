@@ -15,8 +15,23 @@
  Строка лога не обязательно содержит ip, но в логах обязательно содержится
 хотя бы один ip.
 __________Решение___________"""
-
-
+import copy
+import re
+def analyzing_ip(path):
+    with open('log.txt', 'r', encoding='utf-8') as file:
+        ip = file.read()
+        ip1 = re.findall(r"([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", ip)
+        ip2 = set(copy.deepcopy(ip1))
+        result = {}
+        for i in ip1:
+            if i in ip2:
+                result[i] = result.get(i, 0) + 1
+                result1 = str(dict(sorted(result.items(), key=lambda item: item[1], reverse=True)))
+        print(result1)
+    file2 = open('file2', 'w', encoding='utf-8')
+    file2.write(result1)
+    file2.close()
+    return file2
 def main():
     ...
 if __name__ == "__main__":
