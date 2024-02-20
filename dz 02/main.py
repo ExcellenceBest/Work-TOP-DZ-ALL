@@ -13,6 +13,9 @@ list2 = [1, 2, 3]
 list3 = [1, 1, 3, 4, 1, 1, 3, 1, 1, 4]
 list4 = [1, 1]
 def main():
-    ...
+    result = find_occurences(list1, list2)
+    print(f'Количество вхождений равно {result}')
+    result = find_occurences(list3, list4)
+    print(f'Количество вхождений равно {result}')
 if __name__ == '__main__':
     main()
