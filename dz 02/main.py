@@ -1,39 +1,21 @@
-"""Дан лог сервера, который содержит логи операций с машинами. Для
-идентификации машин используются IPv4 адреса.Нужно определить частоту
-встречаемости IP адресов.
-На вход программе лог – текстовый файл log.txt.
-На выходе ожидается новый файл, содержащий список адресов с
-количеством упоминаний адреса (список IP-адресов, отсортированных в порядке
-убывания количества упоминаний). Если несколько IP-адресов имеют одинаковое
-количество упоминаний, то к ним применяется сортировка строк по убыванию.
-Важно:
- В логе может встречаться текст похожий на IP, но не являющимся им,
-например, 0.0.0.1000
- В логах могут встречаться маски подсети, например 192.168.0.0/16. Их не
-нужно считать как ip.
- Строки логов могут быть пустые.
- Строка лога не обязательно содержит ip, но в логах обязательно содержится
-хотя бы один ip.
-__________Решение___________"""
-import copy
 import re
-def analyzing_ip(path):
-    with open('log.txt', 'r', encoding='utf-8') as file:
-        ip = file.read()
-        ip1 = re.findall(r"([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", ip)
-        ip2 = set(copy.deepcopy(ip1))
-        result = {}
-        for i in ip1:
-            if i in ip2:
-                result[i] = result.get(i, 0) + 1
-                result1 = str(dict(sorted(result.items(), key=lambda item: item[1], reverse=True)))
-        print(result1)
-    file2 = open('file2', 'w', encoding='utf-8')
-    file2.write(result1)
-    file2.close()
-    return file2
+def find_occurences(list1: list, list2: list) -> int:
+    str1 = ','.join([str(i) for i in list1])
+    str2 = ','.join([str(i) for i in list2])
+    count = []
+    for i in re.finditer(str2, str1):
+        count.append(i.end())
+    occurences = len(count)
+    return occurences
+
+list1 = [1, 1, 2, 3, 1, 1, 2, 3, 1, 2, 3, 1, 1, 3, 1, 2, 3, 1, 2, 3, 9, 1, 2, 3]
+list2 = [1, 2, 3]
+list3 = [1, 1, 3, 4, 1, 1, 3, 1, 1, 4]
+list4 = [1, 1]
 def main():
-    analyzing_ip('log.txt') # Работаю на двух компах, один ноут, второй на работе,
-                            # тот  же код на работе не ищет адреса с четвертым символом к шаблоном в 3 цифры
-if __name__ == "__main__":
+    result = find_occurences(list1, list2)
+    print(f'Количество вхождений равно {result}')
+    result = find_occurences(list3, list4)
+    print(f'Количество вхождений равно {result}')
+if __name__ == '__main__':
     main()
